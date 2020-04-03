@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<style type="text/css">
+		.enemy{
+			margin-top: 100px;
+			text-align:center;
+			height: 250px;
+		}
+		.player_img{
+			width:200px;
+			height: 300px;
+			margin-left: auto;
+			margin-right: auto;
+			background-size: 100% 100%;
+			position: relative;
+			transition: 1s;
+
+		}
+		.enemy_img{
+			width:200px;
+			height: 300px;
+			margin-left: auto;
+			margin-right: auto;
+			background-size: 100% 100%;
+			position: relative;
+			transition: 1s;
+
+		}
+		.player{
+			text-align: center;
+			height: 250px;
+			margin-top: 150px;
+
+		}
+		.player_property{
+			position: absolute;
+			top:80%;
+
+
+		}
+		.enemy_name{
+			color: white; font-family: Arial;
+		}
+		.player_name{
+			color: white; font-family: Arial
+		}
+	</style>
+</head>
+<body style="background-image: url(images/bg.jpg); background-size: 100% ">
+
+	<div class="enemy">
+		<h1 class="enemy_name"></h1>
+
+		<div class="enemy_img">
+			<h2 class="enemy_hp player_property" style="left: 10%;">0</h2>
+			<h2 class="enemy_damage player_property" style="left: 82%;">0</h2>
+		</div>	
+
+	</div>
+
+	<div class="player">
+		<h1 class="player_name"></h1>
+		
+		<div class="player_img">
+			<h2 class="player_hp player_property" style="left: 10%;">0</h2>
+			<h2 class="player_damage player_property" style="left: 82%;">0</h2>
+		</div>
+
+	</div>
+	<h1 class="pwinner" style="position: absolute; color: white; left: 820px; top: 450px; display: none">Игрок выиграл</h1>
+	<h1 class="ewinner" style="position: absolute; color: white; left: 800px; top: 450px; display: none">Противник выиграл</h1>
+
+	<script type="text/javascript">
+		let enemy = document.querySelector(".enemy")
+		let enemy_img = document.querySelector(".enemy_img")
+		let enemy_hp = document.querySelector(".enemy_hp")
+		let enemy_damage = document.querySelector(".enemy_damage")
+		let player = document.querySelector(".player")
+		let player_img = document.querySelector(".player_img")
+		let player_hp = document.querySelector(".player_hp")
+		let player_damage = document.querySelector(".player_damage")
+		let pwinner = document.querySelector(".pwinner") 
+		let ewinner = document.querySelector(".ewinner") 
+
+		let images = ["url(full-images/1.png)", "url(full-images/2.png)", "url(full-images/3.png)", "url(full-images/4.png)", "url(full-images/5.png)", "url(full-images/6.png)", "url(full-images/7.png)", "url(full-images/8.png)", "url(full-images/9.png)",]
+
+		let getRandom = function(){
+			random = Math.random()*10
+			x = Math.round(random)
+			return x
+		}
+		let RandomImg = function(){
+			random = Math.random()*8
+			x = Math.round(random)
+			return x
+		}
+
+
+		let igrok = {
+			name : "player",
+			hp : getRandom(),
+			dmg : getRandom(),
+			img : images[RandomImg()]
+		}
+		let vrag = {
+			name : "enemy",
+			hp : getRandom(),
+			dmg : getRandom(),
+			img : images[RandomImg()]
+		}
+
+		let attack = function(){
+			alert("враг атакует")
+			igrok.hp = igrok.hp - vrag.dmg
+			player_hp.innerHTML = igrok.hp
+		}
+		let attack2 = function(){
+			alert("игрок атакует")
+			vrag.hp = vrag.hp - igrok.dmg
+			enemy_hp.innerHTML = vrag.hp
+			if(igrok.hp > vrag.hp){
+				pwinner.style.display = "block"
+				enemy_img.style.opacity = 0
+			}
+			if(vrag.hp > igrok.hp){
+				ewinner.style.display = "block"
+				player_img.style.opacity = 0
+			}
+		}
+
+		enemy_hp.innerHTML = vrag.hp
+		enemy_damage.innerHTML = vrag.dmg
+
+		player_hp.innerHTML = igrok.hp
+		player_damage.innerHTML = igrok.dmg
+
+
+		player_img.style.backgroundImage = igrok.img
+		enemy_img.style.backgroundImage = vrag.img
+
+		setTimeout(attack, 2000)
+		setTimeout(attack2, 6000)
+	</script>
+</body>
+</html>
